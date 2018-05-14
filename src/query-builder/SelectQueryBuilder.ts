@@ -57,7 +57,7 @@ export class SelectQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
         sql += this.createLockExpression();
         sql = sql.trim();
         if (this.expressionMap.subQuery)
-            sql = "(" + sql + ")";
+            sql = (this.expressionMap.isLateral ? "LATERAL " : "") + "(" + sql + ")";
         return sql;
     }
 
@@ -73,6 +73,12 @@ export class SelectQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
         qb.expressionMap.subQuery = true;
         qb.expressionMap.parentQueryBuilder = this;
         return qb;
+    }
+
+    setLateral(isLateral: boolean): SelectQueryBuilder<Entity> {
+        this.expressionMap.isLateral = isLateral
+
+        return this
     }
 
     /**

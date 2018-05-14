@@ -168,6 +168,11 @@ export class QueryExpressionMap {
     subQuery: boolean = false;
 
     /**
+     * Indicates if subquery is LATERAL
+     */
+    isLateral: boolean = false
+
+    /**
      * If QueryBuilder was created in a subquery mode then its parent QueryBuilder (who created subquery) will be stored here.
      */
     parentQueryBuilder: QueryBuilder<any>;
